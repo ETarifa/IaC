@@ -27,3 +27,9 @@ resource "aws_instance" "app_server" {
     Name = "Terraform Ansible Python"
   }
 }
+
+resource "aws_key_pair" "chaveSSH"{
+  key_name = DEV
+  public_key = file("IaC-DEV.pub")
+
+}
