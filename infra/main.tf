@@ -10,26 +10,20 @@ terraform {
 }
 
 provider "aws" {
-  region  = "us-east-1"
+  region  = var.regiao_aws
 }
 
 resource "aws_instance" "app_server" {
   ami           = "ami-06aa3f7caf3a30282"
-  instance_type = "t2.micro"
-  key_name = "iac-alura"
-#  user_data = <<-EOF
-#                 #!/bin/bash
-#                 cd /home/ubuntu
-#                 echo "<h1>Feito com Terraform</h1>" > index.html
-#                 nohup busybox httpd -f -p 8080 &
-#                 EOF
+  instance_type = var.instancia
+  key_name = var.chave
   tags = {
     Name = "Terraform Ansible Python"
   }
 }
 
 resource "aws_key_pair" "chaveSSH"{
-  key_name = DEV
-  public_key = file("IaC-DEV.pub")
+  key_name = var.chave
+  public_key = file("${var.chave}.pub")
 
 }
